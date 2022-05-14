@@ -40,47 +40,46 @@ end main2;
 
 architecture Behavioral of main2 is
 
-    signal reminders_s: unsigned(12 downto 0);
 begin
 
 proc_main2:
     process(D) is
     
-    variable reminders: unsigned(12 downto 0) := "0110000000000";
+    variable remainders: unsigned(12 downto 0) := "0110000000000";
     
     begin
-        reminders(0) := D(5);
-        reminders(1) := '0';
+        remainders(0) := D(5);
+        remainders(1) := '0';
         
         for c_d in 1 to 5
         loop 
             -- See rem3 module.
             -- tmp < "011" 
-            if (reminders((c_d * 2 - 1) downto ((c_d * 2) - 2)) & D(5 - c_d)) < "011"
+            if (remainders((c_d * 2 - 1) downto ((c_d * 2) - 2)) & D(5 - c_d)) < "011"
             then
                 -- reminder := tmp -- see rem3 module.
-                reminders((c_d * 2 + 1) downto ((c_d * 2))) 
-                    := reminders(c_d * 2 - 2) & D(5 - c_d);
+                remainders((c_d * 2 + 1) downto ((c_d * 2))) 
+                    := remainders(c_d * 2 - 2) & D(5 - c_d);
             else
                 -- tmp := tmp - "011" -- see rem3 module.
-                reminders((c_d * 2 + 2) downto ((c_d * 2)))
-                    := (reminders(c_d * 2 - 1) & reminders(c_d * 2 - 2) & D(5 - c_d)) - "011";
+                remainders((c_d * 2 + 2) downto ((c_d * 2)))
+                    := (remainders(c_d * 2 - 1) & remainders(c_d * 2 - 2) & D(5 - c_d)) - "011";
                 
                 -- if tmp < "011" -- see rem3 module.
-                if reminders((c_d * 2 + 2) downto (c_d * 2)) < "011"
+                if remainders((c_d * 2 + 2) downto (c_d * 2)) < "011"
                 then
                     -- reminder := tmp -- see rem3 module.
-                    reminders((c_d * 2 + 2) downto ((c_d * 2)))
-                        := reminders((c_d * 2 + 2) downto ((c_d * 2)));
+                    remainders((c_d * 2 + 2) downto ((c_d * 2)))
+                        := remainders((c_d * 2 + 2) downto ((c_d * 2)));
                 else
                     -- reminder := tmp - "011" -- see rem3 module.
-                    reminders((c_d * 2 + 2) downto ((c_d * 2)))
-                        := reminders((c_d * 2 + 2) downto ((c_d * 2))) - "011";
+                    remainders((c_d * 2 + 2) downto ((c_d * 2)))
+                        := remainders((c_d * 2 + 2) downto ((c_d * 2))) - "011";
                 end if;
             end if;
         end loop;
         
-        if reminders(11 downto 10) = "00"
+        if remainders(11 downto 10) = "00"
         then
             F <= '1';
         else
