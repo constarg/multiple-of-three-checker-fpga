@@ -41,7 +41,6 @@ end main2;
 architecture Behavioral of main2 is
 
     signal reminders_s: unsigned(12 downto 0);
-    signal res: integer;
 begin
 
 proc_main2:
