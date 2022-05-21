@@ -57,7 +57,7 @@ proc_main2:
             -- tmp < "011" 
             if (remainders((c_d * 2 - 1) downto ((c_d * 2) - 2)) & D(5 - c_d)) < "011"
             then
-                -- reminder := tmp -- see rem3 module.
+                -- remainder := tmp -- see rem3 module.
                 remainders((c_d * 2 + 1) downto ((c_d * 2))) 
                     := remainders(c_d * 2 - 2) & D(5 - c_d);
             else
@@ -68,18 +68,21 @@ proc_main2:
                 -- if tmp < "011" -- see rem3 module.
                 if remainders((c_d * 2 + 2) downto (c_d * 2)) < "011"
                 then
-                    -- reminder := tmp -- see rem3 module.
+                    -- remainder := tmp -- see rem3 module.
                     remainders((c_d * 2 + 2) downto ((c_d * 2)))
                         := remainders((c_d * 2 + 2) downto ((c_d * 2)));
                 else
-                    -- reminder := tmp - "011" -- see rem3 module.
+                    -- remainder := tmp - "011" -- see rem3 module.
                     remainders((c_d * 2 + 2) downto ((c_d * 2)))
                         := remainders((c_d * 2 + 2) downto ((c_d * 2))) - "011";
                 end if;
             end if;
         end loop;
         
-        if remainders(11 downto 10) = "00"
+        if (D = "000000")
+        then
+            F <= '0';
+        elsif (remainders(11 downto 10) = "00")
         then
             F <= '1';
         else
@@ -90,3 +93,4 @@ proc_main2:
    
 
 end Behavioral;
+

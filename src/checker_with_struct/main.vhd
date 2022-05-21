@@ -102,6 +102,6 @@ begin
                         q => rem3_5_q
                     );                
 
-    F <= '1' when rem3_5_q = "00" else '0';
+    F <= '0' when D = "000000" else '1' when rem3_5_q = "00" else '0';
 
 end Behavioral;
